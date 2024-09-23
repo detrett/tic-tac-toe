@@ -200,8 +200,58 @@ function GameController(
 
     return {
         getActivePlayer,
-        playRound
+        playRound,
+        getBoard: board.getBoard
     };
 }
 
-const game = GameController();
+function ScreenController() {
+    const game = GameController();
+    const playerTurnDiv = document.querySelector('.turn');
+    const boardDiv = document.querySelector('.board');
+
+    const updateScreen = () => {
+        // Clear the board
+        boardDiv.textContent = "";
+
+        // Get the newest version of the board and player turn
+        const board = game.getBoard();
+        const activePlayer = game.getActivePlayer();
+
+        // Display player's turn
+        playerTurnDiv.textContent = `${activePlayer.name}'s turn...`;
+
+        // Render board squares
+        board.forEach((row, r_index) => {
+            row.forEach((cell, c_index) => {
+                const cellButton = document.createElement('button');
+                cellButton.classList.add('cell');
+
+                cellButton.dataset.row = r_index;
+                cellButton.dataset.column = c_index;
+                cellButton.textContent = cell.getValue();
+
+                boardDiv.appendChild(cellButton);
+            })
+        })
+    }
+
+    // Add event listener for the board
+    function clickHandlerBoard(event) {
+        const selectedRow = event.target.dataset.row;
+        const selectedColumn = event.target.dataset.column;
+
+        // Make sure user clicked a column and not the gaps in between
+        if (!selectedColumn || !selectedRow) return;
+
+        game.playRound(selectedRow, selectedColumn);
+        updateScreen();
+    }
+    boardDiv.addEventListener("click", clickHandlerBoard);
+
+    // Initial render
+    updateScreen();
+}
+
+ScreenController();
+

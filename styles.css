@@ -24,3 +24,11 @@ html {
   }
 
 /*STYLES*/
+
+.board {
+    background-color: blanchedalmond;
+}
+
+.cell {
+    background-color: cadetblue;
+}
