@@ -26,7 +26,7 @@ function Gameboard() {
         const targetCell = board[row][column];
 
         // If the target cell is already marked, stop execution.
-        if (targetCell.getValue() !== 0) return false;
+        if (targetCell.getValue() !== null) return false;
 
         console.log(`Marking ${player.name}'s ${player.token} into ${targetCell}`);
 
@@ -93,7 +93,7 @@ function Gameboard() {
     const checkBoardForTie = () => {
         log("Checking for tie");
 
-        const boardFull = board.every((row) => row.every(cell => cell.getValue() !== 0));
+        const boardFull = board.every((row) => row.every(cell => cell.getValue() !== null));
 
         return boardFull;
     }
@@ -104,7 +104,7 @@ function Gameboard() {
         // Iterate over each row and cell to reset their values
         board.forEach(row => {
             row.forEach(cell => {
-                cell.addToken(0);
+                cell.addToken(null);
             });
         });
     }
@@ -126,7 +126,7 @@ function Gameboard() {
 ** -1: PLayer 2's token 
 */
 function Cell() {
-    let value = 0;
+    let value = null;
 
     // Accept a player's token to change the value of the cell
     const addToken = (playerToken) => { value = playerToken; };
@@ -209,6 +209,7 @@ function ScreenController() {
     const game = GameController();
     const playerTurnDiv = document.querySelector('.turn');
     const boardDiv = document.querySelector('.board');
+    const playerIcon = document.getElementById('player-icon');
 
     const updateScreen = () => {
         // Clear the board
@@ -221,6 +222,9 @@ function ScreenController() {
         // Display player's turn
         playerTurnDiv.textContent = `${activePlayer.name}'s turn...`;
 
+        // Update icon
+        activePlayer.token === 1 ? playerIcon.src = `icons/p1.svg` : playerIcon.src = `icons/p2.svg`;
+
         // Render board squares
         board.forEach((row, r_index) => {
             row.forEach((cell, c_index) => {
@@ -229,7 +233,10 @@ function ScreenController() {
 
                 cellButton.dataset.row = r_index;
                 cellButton.dataset.column = c_index;
-                cellButton.textContent = cell.getValue();
+
+                // Add icon based on the value of the cell
+                if(cell.getValue() !== null) cell.getValue() === 1 ? cellButton.classList.add('cross') : cellButton.classList.add('circle');
+                
 
                 boardDiv.appendChild(cellButton);
             })
