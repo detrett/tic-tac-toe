@@ -201,7 +201,9 @@ function GameController(
     return {
         getActivePlayer,
         playRound,
-        getBoard: board.getBoard
+        switchPlayerTurn,
+        getBoard: board.getBoard,
+        resetBoard: board.reset
     };
 }
 
@@ -210,6 +212,7 @@ function ScreenController() {
     const playerTurnDiv = document.querySelector('.turn');
     const boardDiv = document.querySelector('.board');
     const playerIcon = document.getElementById('player-icon');
+    const resetBtn = document.getElementById('reset-btn');
 
     const updateScreen = () => {
         // Clear the board
@@ -235,13 +238,24 @@ function ScreenController() {
                 cellButton.dataset.column = c_index;
 
                 // Add icon based on the value of the cell
-                if(cell.getValue() !== null) cell.getValue() === 1 ? cellButton.classList.add('cross') : cellButton.classList.add('circle');
-                
+                if (cell.getValue() !== null) cell.getValue() === 1 ? cellButton.classList.add('cross') : cellButton.classList.add('circle');
+
 
                 boardDiv.appendChild(cellButton);
             })
         })
     }
+
+
+    resetBtn.addEventListener("click", () => {
+        console.log("RESET BUTTON");
+        game.resetBoard();
+        
+        // X Always starts first
+        if (game.getActivePlayer().token !== 1) game.switchPlayerTurn();
+
+        updateScreen();
+    });
 
     // Add event listener for the board
     function clickHandlerBoard(event) {

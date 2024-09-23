@@ -2,26 +2,38 @@
 html {
     box-sizing: border-box;
     font-size: 16px;
-  }
-  
-  *, *:before, *:after {
+}
+
+*,
+*:before,
+*:after {
     box-sizing: inherit;
-  }
-  
-  body, h1, h2, h3, h4, h5, h6, p, ol, ul {
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ol,
+ul {
     margin: 0;
     padding: 0;
     font-weight: normal;
-  }
-  
-  ol, ul {
+}
+
+ol,
+ul {
     list-style: none;
-  }
-  
-  img {
+}
+
+img {
     max-width: 100%;
     height: auto;
-  }
+}
 
 /*STYLES*/
 
@@ -30,8 +42,12 @@ body {
     font-family: 'Biryani', sans-serif;
 }
 
+.super-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+}
+
 .container {
-    margin: 0 20%;
     padding: 50px 50px;
     min-height: 100vh;
     background-color: #001d3d;
@@ -53,6 +69,7 @@ body {
         justify-self: center;
         border: 1px solid #90e0ef;
         border-radius: 20%;
+
         &:hover {
             cursor: pointer;
         }
@@ -60,14 +77,30 @@ body {
 }
 
 .header {
-    margin-block-end: 50px;
-}
+    margin: auto;
+    margin-block-end: 75px;
+    width: 80%;
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
 
-.turn-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
+
+    & #reset-btn {
+        background-color: #90e0ef;
+        justify-self: center;
+        align-self: center;
+        width: 64px;
+        height: 64px;
+        border: none;
+        border-radius: 25%;
+
+        &:hover {
+            cursor: pointer;
+        }
+
+        & img {
+            width: 36px;
+        }
+    }
 
     & .turn {
         padding-top: 12px;
@@ -80,8 +113,9 @@ body {
 }
 
 #player-icon {
+    justify-self: center;
+    align-self: center;
     width: 48px;
-    margin-inline-end: 24px;
 }
 
 .cross {
@@ -91,7 +125,7 @@ body {
     background-size: 70%;
     background-repeat: no-repeat;
     background-position: center;
-    box-shadow: 0px 0px 12px 1px rgba(255,214,10,0.9);
+    box-shadow: 0px 0px 12px 1px rgba(255, 214, 10, 0.9);
 }
 
 .circle {
@@ -101,6 +135,5 @@ body {
     background-size: 70%;
     background-repeat: no-repeat;
     background-position: center;
-    box-shadow: 0px 0px 15px 1px rgba(247,19,126,0.9);
+    box-shadow: 0px 0px 15px 1px rgba(247, 19, 126, 0.9);
 }
-
