@@ -172,6 +172,11 @@ function GameController(
 
     const getActivePlayer = () => activePlayer;
 
+    const changePlayerName = (playerToken, name) => {
+        const player = playerToken === 1 ? players[0] : players[1];
+        player.name = name;
+    }
+
     const printNewRound = () => {
         board.printBoard();
         console.log(`${getActivePlayer().name}'s turn.`);
@@ -212,6 +217,7 @@ function ScreenController() {
     const playerTurnDiv = document.querySelector('.turn');
     const boardDiv = document.querySelector('.board');
     const playerIcon = document.getElementById('player-icon');
+    const playBtn = document.getElementById('play-btn');
     const resetBtn = document.getElementById('reset-btn');
 
     const updateScreen = () => {
@@ -246,15 +252,21 @@ function ScreenController() {
         })
     }
 
+    playBtn.addEventListener("click", () => {
+        playBtn.classList.toggle('hide');
+        resetBtn.classList.toggle('hide');
+    })
 
     resetBtn.addEventListener("click", () => {
         console.log("RESET BUTTON");
         game.resetBoard();
-        
+
         // X Always starts first
         if (game.getActivePlayer().token !== 1) game.switchPlayerTurn();
 
         updateScreen();
+        resetBtn.classList.toggle('hide');
+        playBtn.classList.toggle('hide');
     });
 
     // Add event listener for the board

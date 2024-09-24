@@ -42,14 +42,11 @@ body {
     font-family: 'Biryani', sans-serif;
 }
 
-.super-container {
-    display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
-}
-
 .container {
+    width: 50%;
+    margin: auto;
+    margin-block-start: 50px;
     padding: 50px 50px;
-    min-height: 100vh;
     background-color: #001d3d;
 }
 
@@ -84,7 +81,7 @@ body {
     grid-template-columns: 1fr 3fr 1fr;
 
 
-    & #reset-btn {
+    & .game-btn {
         background-color: #90e0ef;
         justify-self: center;
         align-self: center;
@@ -136,4 +133,8 @@ body {
     background-repeat: no-repeat;
     background-position: center;
     box-shadow: 0px 0px 15px 1px rgba(247, 19, 126, 0.9);
+}
+
+.hide {
+    display: none;
 }
